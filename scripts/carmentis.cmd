@@ -18,12 +18,12 @@ IF "%1"=="restart" (
     GOTO End
 )
 
-IF "%1"=="reset:db" (
-    echo This command will delete all data in the database. Are you sure? (y/n)
+IF "%1"=="reset" (
+    echo "This command will delete all data and storage of the Carmentis Node. Are you sure? (y/n)"
     set /p answer=
     IF /I "%answer%"=="y" (
         docker-compose -f %DOCKER_COMPOSE_FILE% down
-        rmdir /s /q .\.data\db
+        rmdir /s /q .\.data\*
         docker-compose -f %DOCKER_COMPOSE_FILE% up -d --build
     ) ELSE (
         echo Aborted.
@@ -50,7 +50,7 @@ IF "%1"=="status" (
 )
 
 :Usage
-echo Usage: %0 {start|stop|restart|update|logs|status|reset:db}
+echo Usage: %0 {start|stop|restart|update|logs|status|reset}
 exit /b 1
 
 :End

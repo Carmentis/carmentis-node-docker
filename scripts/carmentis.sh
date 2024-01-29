@@ -36,12 +36,12 @@ case "$1" in
         stop_app
         start_app
         ;;
-    reset:db)
-        echo "This command will delete all data in the database. Are you sure? (y/n)"
+    reset)
+        echo "This command will delete all data and storage of the Carmentis Node. Are you sure? (y/n)"
         read answer
         if [ "$answer" != "${answer#[Yy]}" ] ;then
           stop_app
-          rm -rf ./.data/db
+          rm -rf ./.data/*
           start_app
         else
           echo "Aborted."
@@ -59,7 +59,7 @@ case "$1" in
         check_status
         ;;
     *)
-        echo "Usage: $0 {start|stop|restart|update|logs|status|reset:db}"
+        echo "Usage: $0 {start|stop|restart|update|logs|status|reset}"
         exit 1
 esac
 

@@ -1,41 +1,26 @@
 version: "3.3"
 
 services:
-  sql:
-    container_name: db.carmentis
-    image: postgres:15
-    restart: unless-stopped
-    ports:
-      - "5432:5432"
-    volumes:
-      - ./.data/db:/var/lib/postgresql/data
+  node:
+    image: ghcr.io/carmentis/node.carmentis:latest
     environment:
-      - POSTGRES_USER=${SQL_ADMIN_USER:-postgres}
-      - POSTGRES_PASSWORD=${SQL_ADMIN_PASSWORD:-KVf3u7rGB9fW}
-    networks:
-      - carmentis_network
-
-  operator:
-    depends_on:
-      - sql
-    ports:
-      - "3005:3005"
-    image: ghcr.io/carmentis/operator.carmentis:latest
-    environment:
-      - WEB_DOMAIN=${WEB_DOMAIN:-carmentis.io}
-      - SQL_ADMIN_USER=${SQL_ADMIN_USER:-postgres}
-      - SQL_ADMIN_PASSWORD=${SQL_ADMIN_PASSWORD:-KVf3u7rGB9fW}
-      - SQL_HOST=${SQL_HOST:-sql}
-      - SQL_PORT=${SQL_PORT:-5432}
-      - DATABASE_URL=postgres://${SQL_ADMIN_USER:-postgres}:${SQL_ADMIN_PASSWORD:-KVf3u7rGB9fW}@${SQL_HOST:-sql}:${SQL_PORT:-5432}/carmentis_operator
-    container_name: operator.carmentis
+      - CARMENTIS_NODE_URL=${CARMENTIS_NODE_URL:-https://mercurius.carmentis.io}
+      - CARMENTIS_NODE_NAME=${CARMENTIS_NODE_NAME:-MERCURIUS}
+      - CARMENTIS_NODE_DATABASE_DIR=${CARMENTIS_NODE_DATABASE_DIR:-/carmentis/app/node/db}
+      - CARMENTIS_NODE_STORAGE_DIR=${CARMENTIS_NODE_STORAGE_DIR:-/carmentis/app/node/storage}
+      - CARMENTIS_NODE_PLUGIN_DIR=${CARMENTIS_NODE_PLUGIN_DIR:-/carmentis/app/node/plugins}
+      - CARMENTIS_NODE_KEY_FILE=${CARMENTIS_NODE_KEY_FILE:-/carmentis/app/node/carmentis.key}
+      - CARMENTIS_CONFIG_FILE=${CARMENTIS_CONFIG_FILE:-/carmentis/config/config-docker.json}
+    container_name: node.carmentis
     restart: unless-stopped
-    working_dir: /carmentis
     tty: true
     volumes:
-      - ./.data/storage:/carmentis/app/operatorServer/storage
+      - ./.data/node/storage:${CARMENTIS_NODE_STORAGE_DIR:-/carmentis/app/node/storage}
+      - ./.data/node/db:${CARMENTIS_NODE_DATABASE_DIR:-/carmentis/app/node/db}
     networks:
       - carmentis_network
+    ports:
+      - "3004:3004"
 
 networks:
     carmentis_network:
