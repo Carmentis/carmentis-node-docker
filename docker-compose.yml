@@ -2,7 +2,7 @@ version: "3.3"
 
 services:
   node:
-    image: ghcr.io/carmentis/node.carmentis:latest
+    image: ghcr.io/carmentis/node.carmentis-amd64:latest
     environment:
       - CARMENTIS_NODE_URL=${CARMENTIS_NODE_URL:-https://mercurius.carmentis.io}
       - CARMENTIS_NODE_NAME=${CARMENTIS_NODE_NAME:-MERCURIUS}
@@ -11,6 +11,7 @@ services:
       - CARMENTIS_NODE_PLUGIN_DIR=${CARMENTIS_NODE_PLUGIN_DIR:-/carmentis/app/node/plugins}
       - CARMENTIS_NODE_KEY_FILE=${CARMENTIS_NODE_KEY_FILE:-/carmentis/app/node/carmentis.key}
       - CARMENTIS_CONFIG_FILE=${CARMENTIS_CONFIG_FILE:-/carmentis/config/config-docker.json}
+      - CARMENTIS_NODE_PORT=${CARMENTIS_NODE_PORT:-3004}
     container_name: node.carmentis
     restart: unless-stopped
     tty: true
