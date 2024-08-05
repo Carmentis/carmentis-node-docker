@@ -1,3 +1,8 @@
-.data
 .idea
-
+/.carmentis/.cache/
+/.carmentis/abci/
+/.carmentis/cometbft/config/*
+!/.carmentis/cometbft/config/config.toml
+!/.carmentis/cometbft/config/genesis.json
+/.carmentis/cometbft/data/
+.env

@@ -1,8 +1,26 @@
 version: "3.3"
 
 services:
-  node:
-    image: ghcr.io/carmentis/node.carmentis-amd64:latest
+  cometbft:
+    container_name: cometbft.carmentis
+    image: "cometbft/cometbft:v0.38.x"
+    ports:
+      - "26656-26657:26656-26657"
+      - "26670:26660"
+    environment:
+      - ID=0
+      - CMTHOME=/cometbft
+      - LOG=${LOG:-cometbft.log}
+      - PROXY_APP=${PROXY_APP:-abci:3004}
+      - MONIKER=${NODE_NAME:-TESTNODE0}
+    networks:
+      - carmentis_network
+    volumes:
+      - ./.carmentis/cometbft:/cometbft
+  abci:
+    depends_on:
+      - cometbft
+    image: ghcr.io/carmentis/abci.carmentis-amd64:dev
     environment:
       - CARMENTIS_NODE_URL=${CARMENTIS_NODE_URL:-https://mercurius.carmentis.io}
       - CARMENTIS_NODE_NAME=${CARMENTIS_NODE_NAME:-MERCURIUS}
@@ -10,14 +28,14 @@ services:
       - CARMENTIS_NODE_STORAGE_DIR=${CARMENTIS_NODE_STORAGE_DIR:-/carmentis/app/node/storage}
       - CARMENTIS_NODE_PLUGIN_DIR=${CARMENTIS_NODE_PLUGIN_DIR:-/carmentis/app/node/plugins}
       - CARMENTIS_NODE_KEY_FILE=${CARMENTIS_NODE_KEY_FILE:-/carmentis/app/node/carmentis.key}
-      - CARMENTIS_CONFIG_FILE=${CARMENTIS_CONFIG_FILE:-/carmentis/config/config-docker.json}
       - CARMENTIS_NODE_PORT=${CARMENTIS_NODE_PORT:-3004}
-    container_name: node.carmentis
+      - CARMENTIS_NODE_PROTO_DIR=/carmentis/app/node/proto
+    container_name: abci.carmentis
     restart: unless-stopped
     tty: true
     volumes:
-      - ./.data/node/storage:${CARMENTIS_NODE_STORAGE_DIR:-/carmentis/app/node/storage}
-      - ./.data/node/db:${CARMENTIS_NODE_DATABASE_DIR:-/carmentis/app/node/db}
+      - ./.carmentis/abci/storage:${CARMENTIS_NODE_STORAGE_DIR:-/carmentis/app/node/storage}
+      - ./.carmentis/abci/db:${CARMENTIS_NODE_DATABASE_DIR:-/carmentis/app/node/db}
     networks:
       - carmentis_network
     ports:

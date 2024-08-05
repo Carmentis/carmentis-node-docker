@@ -41,8 +41,12 @@ case "$1" in
         read answer
         if [ "$answer" != "${answer#[Yy]}" ] ;then
           stop_app
-          rm -rf ./.data/*
-          start_app
+          echo "Carmentis Node has been stopped."
+          echo "Deleting all data and storage (not the cometbft's config)"
+          rm -rf ./.carmentis/abci
+          rm -rf ./.carmentis/cometbft/.cache
+          rm -rf ./.carmentis/cometbft/data
+          echo "Carmentis Node has been reset."
         else
           echo "Aborted."
         fi
