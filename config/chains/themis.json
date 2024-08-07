@@ -1,0 +1,40 @@
+{
+  "genesis_time": "2024-08-07T13:04:00.462373845Z",
+  "chain_id": "themis",
+  "initial_height": "0",
+  "consensus_params": {
+    "block": {
+      "max_bytes": "22020096",
+      "max_gas": "-1",
+      "time_iota_ms": "500"
+    },
+    "evidence": {
+      "max_age_num_blocks": "100000",
+      "max_age_duration": "172800000000000",
+      "max_bytes": "1048576"
+    },
+    "validator": {
+      "pub_key_types": [
+        "ed25519"
+      ]
+    },
+    "version": {
+      "app": "0"
+    },
+    "abci": {
+      "vote_extensions_enable_height": "0"
+    }
+  },
+  "validators": [
+    {
+      "address": "10FB5EF6F3AA702AB36C2B34D3FE885A6991A00F",
+      "pub_key": {
+        "type": "tendermint/PubKeyEd25519",
+        "value": "yfi59jf4riMCp+egkBlA0K7QbL7e4LSVlVhZ/XKy0BM="
+      },
+      "power": "10",
+      "name": ""
+    }
+  ],
+  "app_hash": ""
+}

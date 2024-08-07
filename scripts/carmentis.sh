@@ -26,7 +26,7 @@ update() {
 }
 
 case "$1" in
-    start)
+    start:themis)
         start_app
         ;;
     stop)
@@ -63,7 +63,7 @@ case "$1" in
         check_status
         ;;
     *)
-        echo "Usage: $0 {start|stop|restart|update|logs|status|reset}"
+        echo "Usage: $0 {start:themis|stop|restart|update|logs|status|reset}"
         exit 1
 esac
 

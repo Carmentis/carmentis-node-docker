@@ -2,8 +2,11 @@ version: "3.3"
 
 services:
   cometbft:
+    build:
+      context: ./
+      dockerfile: Dockerfile
     container_name: cometbft.carmentis
-    image: "cometbft/cometbft:v0.38.x"
+    image: cometbft.carmentis
     ports:
       - "26656-26657:26656-26657"
       - "26670:26660"
@@ -17,6 +20,9 @@ services:
       - carmentis_network
     volumes:
       - ./.carmentis/cometbft:/cometbft
+#    command: ["/cometbft/cometbft"]
+    #entrypoint: ["docker-entrypoint.sh"]
+
   abci:
     depends_on:
       - cometbft
