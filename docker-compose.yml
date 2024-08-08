@@ -2,11 +2,8 @@ version: "3.3"
 
 services:
   cometbft:
-    build:
-      context: ./
-      dockerfile: Dockerfile
     container_name: cometbft.carmentis
-    image: cometbft.carmentis
+    image: ghcr.io/carmentis/cometbft.carmentis-amd64:latest
     ports:
       - "26656-26657:26656-26657"
       - "26670:26660"
@@ -15,7 +12,7 @@ services:
       - CMTHOME=/cometbft
       - LOG=${LOG:-cometbft.log}
       - PROXY_APP=${PROXY_APP:-abci:3004}
-      - MONIKER=${NODE_NAME:-TESTNODE0}
+      - MONIKER=${CARMENTIS_NODE_NAME:-TESTNODE0}
     networks:
       - carmentis_network
     volumes:

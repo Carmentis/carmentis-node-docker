@@ -5,6 +5,13 @@ GIT_BRANCH="main"
 DOCKER_COMPOSE_FILE="./docker-compose.yml"
 
 start_app() {
+
+    if [ -d ./.carmentis/cometbft/config ]; then
+      if [ -f ./priv_validator_key.json ]; then
+        echo "Copying your priv_validator_key.json to the config directory."
+        cp ./priv_validator_key.json .carmentis/cometbft/config/priv_validator_key.json
+      fi
+    fi
     docker-compose -f $DOCKER_COMPOSE_FILE up -d --build
 }
 
@@ -40,13 +47,13 @@ case "$1" in
         echo "This command will delete all data and storage of the Carmentis Node. Are you sure? (y/n)"
         read answer
         if [ "$answer" != "${answer#[Yy]}" ] ;then
+          echo "Stopping Carmentis services..."
           stop_app
           echo "Carmentis Node has been stopped."
-          echo "Deleting all data and storage (not the cometbft's config)"
-          rm -rf ./.carmentis/abci
-          rm -rf ./.carmentis/cometbft/.cache
-          rm -rf ./.carmentis/cometbft/data
-          echo "Carmentis Node has been reset."
+          echo "Deleting all data and storage..."
+          rm -rf ./.carmentis/abci/
+          rm -rf ./.carmentis/cometbft
+          echo "Your Carmentis Node has been reset. You can now start the services again with 'bash dev-scripts/carmentis.sh start:themis'"
         else
           echo "Aborted."
         fi

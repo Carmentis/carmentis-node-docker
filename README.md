@@ -14,9 +14,7 @@ Clone the repository and navigate to the directory where the `docker-compose.yml
 
 ## Managing the Application
 
-### Unix Users
-
-1. **Starting the Application:** Run `./scripts/carmentis.sh start` to start the application. This command launches the Operator service in detached mode.
+1. **Starting the Application (on Themis network):** Run `./scripts/carmentis.sh start:themis` to start the application. This command launches the Node services in detached mode.
 
 2. **Stopping the Application:** Execute `./scripts/carmentis.sh stop` to stop and remove container instances.
 
@@ -25,27 +23,13 @@ Clone the repository and navigate to the directory where the `docker-compose.yml
 4. **Viewing Logs:** To view the application logs, run `./scripts/carmentis.sh logs`.
 
 5. **Checking the Status:** For the current status of the service, execute `./scripts/carmentis.sh status`.
-6. **Upgrading the Application:** To update the application, run `./scripts/carmentis.sh update`.
-7. **Resetting the Application:** To reset the application's database, execute `./scripts/carmentis.sh reset:db`.
-
-### Windows Users
-
-1. **Starting the Application:** Run `scripts/carmentis.cmd start` in the command prompt to start the application.
-
-2. **Stopping the Application:** Use `scripts/carmentis.cmd stop` to stop and remove container instances.
-
-3. **Restarting the Application:** To restart the Operator service, execute `scripts/carmentis.cmd restart`.
-
-4. **Viewing Logs:** View the application logs by running `scripts/carmentis.cmd logs`.
-
-5. **Checking the Status:** Check the current status of the service with `scripts/carmentis.cmd status`.
-6. **Upgrading the Application:** To update the application, run `scripts/carmentis.cmd update`.
-7. **Resetting the Application:** To reset the application's database, execute `scripts/carmentis.cmd reset:db`.
+6. **Upgrading the Application:** To upgrade the application to the latest update, run `./scripts/carmentis.sh update`. It will stop the current running services, pulls the latest image, and starts the services again.
+7. **Resetting the Application:** To reset the application's database, execute `./scripts/carmentis.sh reset`.
 
 ## Additional Notes
 
 - Ensure all environment variables and configurations are set correctly in your `.env` file.
-- The .data/node/db directory is used to store the application's database files. This directory is created automatically when the application is started.
-- The .data/node/storage directory is used to store the application's storage files. This directory is created automatically when the application is started.
- 
+- To start the Carmentis Node as validator, you need to provide the validator key (to do before being whitelisted by the network). The validator key should be placed in the Carmentis node directory. Restart the node after placing the validator key if the node is already running.
+- The .carmentis directory is created in the root directory of the project. It contains the data and configuration files for the Carmentis Node.
+
 You should take care to back up the files in .data regularly.
