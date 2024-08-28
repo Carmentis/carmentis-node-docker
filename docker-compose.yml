@@ -3,7 +3,7 @@ version: "3.3"
 services:
   cometbft:
     container_name: cometbft.carmentis
-    image: ghcr.io/carmentis/cometbft.carmentis-amd64:latest
+    image: ghcr.io/carmentis/cometbft.carmentis:latest
     ports:
       - "26656-26657:26656-26657"
       - "26670:26660"
