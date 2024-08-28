@@ -23,7 +23,7 @@ services:
   abci:
     depends_on:
       - cometbft
-    image: ghcr.io/carmentis/abci.carmentis-amd64:dev
+    image: ghcr.io/carmentis/abci.carmentis:latest
     environment:
       - CARMENTIS_NODE_URL=${CARMENTIS_NODE_URL:-https://mercurius.carmentis.io}
       - CARMENTIS_NODE_NAME=${CARMENTIS_NODE_NAME:-MERCURIUS}
