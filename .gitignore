@@ -1,3 +1,4 @@
-.data
 .idea
-
+/.carmentis
+.env
+priv_validator_key.json
