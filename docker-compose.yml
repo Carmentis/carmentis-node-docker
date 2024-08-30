@@ -16,7 +16,7 @@ services:
     networks:
       - carmentis_network
     volumes:
-      - ./.carmentis/cometbft:/cometbft
+      - ./.carmentis:/cometbft
 #    command: ["/cometbft/cometbft"]
     #entrypoint: ["docker-entrypoint.sh"]
 
@@ -37,8 +37,7 @@ services:
     restart: unless-stopped
     tty: true
     volumes:
-      - ./.carmentis/abci/storage:${CARMENTIS_NODE_STORAGE_DIR:-/carmentis/app/node/storage}
-      - ./.carmentis/abci/db:${CARMENTIS_NODE_DATABASE_DIR:-/carmentis/app/node/db}
+      - ./.carmentis/data/application.db:${CARMENTIS_NODE_DATABASE_DIR:-/carmentis/app/node/db}
     networks:
       - carmentis_network
     ports:
