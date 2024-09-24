@@ -30,6 +30,8 @@ check_status() {
 update() {
     git pull origin $GIT_BRANCH
     docker-compose pull
+    echo "Your Carmentis Node has been updated to the last version."
+    echo "You can now start the services again with 'bash dev-scripts/carmentis.sh start:themis'"
 }
 
 case "$1" in
@@ -47,10 +49,9 @@ case "$1" in
         echo "This command will delete all data and storage of the Carmentis Node. Are you sure? (y/n)"
         read answer
         if [ "$answer" != "${answer#[Yy]}" ] ;then
-          echo "Stopping Carmentis services..."
           stop_app
           echo "Carmentis Node has been stopped."
-          echo "Deleting all data and storage..."
+          echo "Deleting all config & data"
           rm -rf ./.carmentis/
           echo "Your Carmentis Node has been reset. You can now start the services again with 'bash dev-scripts/carmentis.sh start:themis'"
         else
@@ -60,7 +61,6 @@ case "$1" in
     update)
         stop_app
         update
-        start_app
         ;;
     logs)
         show_logs
