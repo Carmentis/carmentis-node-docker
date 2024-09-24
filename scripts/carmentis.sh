@@ -51,8 +51,7 @@ case "$1" in
           stop_app
           echo "Carmentis Node has been stopped."
           echo "Deleting all data and storage..."
-          rm -rf ./.carmentis/abci/
-          rm -rf ./.carmentis/cometbft
+          rm -rf ./.carmentis/
           echo "Your Carmentis Node has been reset. You can now start the services again with 'bash dev-scripts/carmentis.sh start:themis'"
         else
           echo "Aborted."
