@@ -12,24 +12,24 @@ start_app() {
         cp ./priv_validator_key.json .carmentis/cometbft/config/priv_validator_key.json
       fi
     fi
-    docker-compose -f $DOCKER_COMPOSE_FILE up -d --build
+    docker compose -f $DOCKER_COMPOSE_FILE up -d --build
 }
 
 stop_app() {
-    docker-compose -f $DOCKER_COMPOSE_FILE down
+    docker compose -f $DOCKER_COMPOSE_FILE down
 }
 
 show_logs() {
-    docker-compose -f $DOCKER_COMPOSE_FILE logs
+    docker compose -f $DOCKER_COMPOSE_FILE logs
 }
 
 check_status() {
-    docker-compose -f $DOCKER_COMPOSE_FILE ps
+    docker compose -f $DOCKER_COMPOSE_FILE ps
 }
 
 update() {
     git pull origin $GIT_BRANCH
-    docker-compose pull
+    docker compose pull
     echo "Your Carmentis Node has been updated to the last version."
     echo "You can now start the services again with 'bash dev-scripts/carmentis.sh start:themis'"
 }
