@@ -3,7 +3,7 @@ version: "3.3"
 services:
   cometbft:
     container_name: cometbft.carmentis
-    image: ghcr.io/carmentis/cometbft.carmentis:latest
+    image: ghcr.io/carmentis/cometbft.carmentis:themis-3
     ports:
       - "26656-26657:26656-26657"
       - "26670:26660"
@@ -23,7 +23,7 @@ services:
   abci:
     depends_on:
       - cometbft
-    image: ghcr.io/carmentis/abci.carmentis:latest
+    image: ghcr.io/carmentis/abci.carmentis:themis-3
     environment:
       - CARMENTIS_NODE_URL=${CARMENTIS_NODE_URL:-https://mercurius.carmentis.io}
       - CARMENTIS_NODE_NAME=${CARMENTIS_NODE_NAME:-MERCURIUS}
